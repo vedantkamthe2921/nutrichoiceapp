@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" style="color-scheme:light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nutrichoice Wireframe Prototype</title>
+<style>
+:root{--bg:#e9ebe9;--phone:#fff;--card:#f2f3f2;--line:#d3d6d3;--ink:#1d211d;--mute:#666d66;--g:#1f5a3a;--gsoft:#dcebe2;--warn:#fff4d6;--warnl:#c9a23a;--on-g:#fff;--hl:#e3efe7;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101210;--phone:#1a1d1a;--card:#242824;--line:#383e38;--ink:#eef0ee;--mute:#9aa29a;--g:#5fb88a;--gsoft:#23382c;--warn:#3a321a;--warnl:#a98b30;--on-g:#0f1a13;--hl:#26382d}}
+:root[data-theme="dark"]{--bg:#101210;--phone:#1a1d1a;--card:#242824;--line:#383e38;--ink:#eef0ee;--mute:#9aa29a;--g:#5fb88a;--gsoft:#23382c;--warn:#3a321a;--warnl:#a98b30;--on-g:#0f1a13;--hl:#26382d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;padding:16px 0}
+.phone{width:390px;max-width:100%;height:844px;max-height:calc(100vh - 32px);background:var(--phone);border:1px solid var(--line);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+@media (max-width:430px){body{padding:0}.phone{height:100vh;max-height:none;border-radius:0;border:0}}
+.screen{display:none;flex-direction:column;flex:1;min-height:0}
+.screen.on{display:flex}
+.body{flex:1;overflow-y:auto;padding:16px 18px 20px}
+.top{display:flex;align-items:center;gap:10px;padding:14px 18px 6px}
+.top h1{font-size:19px;margin:0;font-weight:650}
+h2{font-size:15px;margin:18px 0 8px;font-weight:650}
+p{margin:0 0 8px}
+.mute{color:var(--mute);font-size:13px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+.btn{display:block;width:100%;padding:13px;border-radius:12px;border:1.5px solid var(--g);background:transparent;font-weight:600;text-align:center;margin-bottom:10px}
+.btn.p{background:var(--g);color:var(--on-g)}
+.btn.sm{padding:9px;font-size:14px}
+.back{border:1px solid var(--line);background:transparent;border-radius:10px;width:36px;height:36px;font-size:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.card.warn{background:var(--warn);border-color:var(--warnl)}
+.card.green{background:var(--gsoft);border-color:var(--g)}
+.card h3{margin:0 0 4px;font-size:14.5px}
+.row{display:flex;gap:10px;align-items:center}
+.img{width:56px;height:56px;border-radius:10px;border:1.5px dashed var(--line);background:var(--card);flex:none;display:grid;place-items:center;color:var(--mute);font-size:11px}
+.img.lg{width:84px;height:84px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.stat b{display:block;font-size:17px}
+.nav{display:flex;border-top:1px solid var(--line);background:var(--phone);padding:6px 6px 8px}
+.nav button{flex:1;border:0;background:none;padding:6px 0;font-size:12px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav button span{font-size:19px;line-height:1}
+.nav button.act{color:var(--g);font-weight:650}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:12px 0}
+.tabs button{border:1px solid var(--line);background:none;border-radius:20px;padding:6px 13px;font-size:13.5px;white-space:nowrap}
+.tabs button.on{background:var(--g);color:var(--on-g);border-color:var(--g)}
+.panel{display:none}.panel.on{display:block}
+mark{background:var(--hl);border-bottom:2px solid var(--g);color:inherit;padding:0 2px;border-radius:3px;cursor:pointer}
+.cam{height:300px;border-radius:16px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;margin:8px 0 12px}
+.frame{width:78%;height:58%;border:2.5px dashed var(--g);border-radius:12px;display:grid;place-items:center;text-align:center;color:var(--mute);font-size:13px;padding:10px}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:18px;padding:6px 12px;margin:0 6px 8px 0;font-size:13.5px;background:none}
+.chip.on{background:var(--g);color:var(--on-g);border-color:var(--g)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:650}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-top:3px;background:var(--card)}
+.tag.hi{border-color:var(--warnl);background:var(--warn)}
+.tag.lo{border-color:var(--g);background:var(--gsoft)}
+.sw{width:46px;height:26px;border-radius:14px;background:var(--line);border:0;position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--phone);transition:left .15s}
+.sw.on{background:var(--g)}.sw.on::after{left:23px}
+select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.recent{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px}
+.note{font-size:12.5px;color:var(--mute);border-left:3px solid var(--line);padding-left:10px;margin:10px 0}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--g);color:var(--on-g);display:grid;place-items:center;font-weight:700;font-size:20px}
+.toast{position:absolute;left:50%;bottom:84px;transform:translateX(-50%);background:var(--ink);color:var(--phone);padding:8px 14px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.suit{margin:4px 0 6px}
+.suit h2.t{font-size:18px;margin:8px 0 10px}
+.score{font-size:30px;font-weight:700;line-height:1}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:var(--g)}
+.chk{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.chk:last-child{border:0}
+.tag.bad{border:2px solid var(--warnl);background:var(--warn);font-weight:650}
+.chk .tag{margin:0;text-align:right;flex:none}
+ul.why{margin:0;padding-left:18px;font-size:14px}
+ul.why li{margin-bottom:5px}
+input[type=number]{width:100%;padding:9px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.tgt{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.tgt label{font-size:12.5px;color:var(--mute);display:block;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- 1 HOME -->
+<section class="screen on" id="home" aria-label="Home">
+ <div class="body">
+  <div class="row" style="margin:6px 0 18px"><div class="logo">N</div><div><div style="font-weight:700;font-size:20px">Nutrichoice</div><div class="mute">Understand what’s inside.</div></div></div>
+  <button class="btn p" onclick="go('scan')">Scan Product Label</button>
+  <button class="btn" onclick="go('compare')">Compare Products</button>
+  <h2>Recent scans</h2>
+  <button class="recent row" onclick="go('analysis')"><div class="img">photo</div><div><b>Instant Noodles, Masala</b><div class="mute">Scanned today · 3 allergens listed</div></div></button>
+  <button class="recent row" onclick="go('analysis')"><div class="img">photo</div><div><b>Chocolate Biscuits</b><div class="mute">Scanned yesterday · 2 allergens listed</div></div></button>
+  <p class="note">All product data in this prototype is sample data.</p>
+ </div>
+</section>
+
+<!-- 2 SCAN -->
+<section class="screen" id="scan" aria-label="Scan Product">
+ <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Scan Product Label</h1></div>
+ <div class="body">
+  <div class="cam"><div class="frame">Position the ingredient or nutrition label inside this outline</div></div>
+  <p style="text-align:center">Capture the printed label clearly.</p>
+  <button class="btn p" onclick="go('analysis')">Capture Label</button>
+  <button class="btn" onclick="go('analysis')">Upload Image</button>
+  <button class="btn" onclick="toast('Manual entry form (not built in this wireframe)')">Enter Details Manually</button>
+  <p class="note">Nutrichoice reads printed product labels using text recognition. Results depend on image clarity and should be checked against the pack.</p>
+ </div>
+</section>
+
+<!-- 3 ANALYSIS -->
+<section class="screen" id="analysis" aria-label="Product Analysis">
+ <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Product Analysis</h1></div>
+ <div class="body">
+  <div class="row" style="margin-bottom:10px"><div class="img lg">product<br>image</div><div><b style="font-size:17px">Instant Noodles, Masala</b><div class="mute">70 g pack · Sample data</div></div></div>
+  <section class="suit" aria-label="Is this product right for you"><h2 class="t">Is This Product Right for You?</h2><div id="suit"></div></section>
+  <div class="tabs" role="tablist">
+   <button class="on" onclick="tab(this,'t-over')">Overview</button><button onclick="tab(this,'t-ing')">Ingredients</button><button onclick="tab(this,'t-nut')">Nutrition</button><button onclick="tab(this,'t-all')">Allergens</button>
+  </div>
+
+  <div class="panel on" id="t-over">
+   <div class="card green"><h3>Label summary</h3><p style="margin:0">Higher in sodium and refined flour. Contains a flavour enhancer and wheat. Moderate protein for a snack-type product.</p></div>
+   <div class="card warn row"><span style="font-size:24px">⚠</span><div><h3>Allergen warning</h3><p style="margin:0" class="mute">Contains wheat (gluten) and soy.</p></div></div>
+   <div class="card"><h3>Your preferences</h3><p style="margin:0">This product is high in sodium compared with your selected preference.</p></div>
+  </div>
+
+  <div class="panel" id="t-ing">
+   <div class="card"><h3>Ingredient list</h3>
+   <p style="margin:0">Wheat flour, palm oil, salt, sugar, spice mix, <mark onclick="go('ingredient')">INS 635</mark>, <mark onclick="go('ingredient')">INS 621</mark>, thickener (INS 412), acidity regulator (INS 501(i)), soy sauce powder.</p></div>
+   <div class="card green"><h3>INS 635</h3><p style="margin:0">A flavour enhancer used to improve taste.</p></div>
+   <p class="mute">Tap a highlighted ingredient to see details.</p>
+  </div>
+
+  <div class="panel" id="t-nut">
+   <div class="grid2">
+    <div class="stat"><span class="mute">Serving size</span><b>70 g</b></div>
+    <div class="stat"><span class="mute">Calories</span><b>310 kcal</b></div>
+    <div class="stat"><span class="mute">Sugar</span><b>2 g</b></div>
+    <div class="stat"><span class="mute">Sodium</span><b>1,180 mg</b></div>
+    <div class="stat"><span class="mute">Protein</span><b>7 g</b></div>
+   </div>
+   <p class="note">Values are per serving and are placeholders for this prototype.</p>
+  </div>
+
+  <div class="panel" id="t-all">
+   <div class="card warn row"><span style="font-size:24px">⚠</span><div><h3>Contains</h3><p style="margin:0">Wheat (gluten), soy.</p></div></div>
+   <div class="card"><h3>May contain</h3><p style="margin:0" class="mute">Milk, peanut (placeholder: check the pack’s “may contain” statement).</p></div>
+  </div>
+
+  <button class="btn p" onclick="go('ingredient')" style="margin-top:14px">View Ingredient Details</button>
+  <button class="btn" onclick="go('compare')">Compare Product</button>
+  <p class="note">This summary describes the label. It does not label a product as safe or harmful.</p>
+ </div>
+</section>
+
+<!-- 4 INGREDIENT -->
+<section class="screen" id="ingredient" aria-label="Ingredient Details">
+ <div class="top"><button class="back" onclick="go('analysis',true)" aria-label="Back to Product Analysis">‹</button><h1>Ingredient Details</h1></div>
+ <div class="body">
+  <div class="card"><b style="font-size:17px">Disodium 5′-ribonucleotides</b><div class="mute">Code: INS 635 · Flavour enhancer</div></div>
+  <div class="card green"><h3>In simple words</h3><p style="margin:0">INS 635 makes savoury foods taste richer and more “meaty”. It is used in small amounts, often with salt.</p></div>
+  <h2>What it is</h2><p>A mix of two sodium salts of nucleotides, made commercially by fermentation. <span class="mute">[Placeholder: verify]</span></p>
+  <h2>Why manufacturers use it</h2><p>It boosts savoury flavour so less salt or seasoning may be needed. <span class="mute">[Placeholder: verify]</span></p>
+  <h2>Common function in food</h2><p>Flavour enhancer in noodles, soups, snacks and sauces.</p>
+  <h2>Regulatory and safety information</h2>
+  <div class="card"><p style="margin:0" class="mute">[Placeholder: add current limits and status from the relevant authority, such as FSSAI, Codex or EFSA, once verified. Some people avoid nucleotides on dietary grounds, so check the pack if relevant to you.]</p></div>
+  <h2>Sources and references</h2>
+  <div class="card"><p style="margin:0" class="mute">1. [Source name, year, link placeholder]<br>2. [Source name, year, link placeholder]</p></div>
+  <button class="btn" onclick="go('analysis',true)">Back to Product Analysis</button>
+ </div>
+</section>
+
+<!-- 5 COMPARE -->
+<section class="screen" id="compare" aria-label="Compare Products">
+ <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Compare Products</h1></div>
+ <div class="body">
+  <div class="grid2">
+   <div class="card" style="text-align:center"><div class="img" style="margin:0 auto 6px">image</div><b>Instant Noodles</b><div class="mute">Product A</div></div>
+   <div class="card" style="text-align:center"><div class="img" style="margin:0 auto 6px">image</div><b>Chocolate Biscuits</b><div class="mute">Product B</div></div>
+  </div>
+  <div class="grid2"><button class="btn sm" onclick="toast('Product A picker (placeholder)')">Select Product A</button><button class="btn sm" onclick="toast('Product B picker (placeholder)')">Select Product B</button></div>
+  <table>
+   <tr><th></th><th>A</th><th>B</th></tr>
+   <tr><td>Calories</td><td>310 kcal<br><span class="tag">Lower</span></td><td>480 kcal<br><span class="tag hi">Higher</span></td></tr>
+   <tr><td>Sugar</td><td>2 g<br><span class="tag lo">Lower</span></td><td>24 g<br><span class="tag hi">Higher</span></td></tr>
+   <tr><td>Sodium</td><td>1,180 mg<br><span class="tag hi">Higher</span></td><td>260 mg<br><span class="tag lo">Lower</span></td></tr>
+   <tr><td>Protein</td><td>7 g<br><span class="tag">Similar</span></td><td>6 g<br><span class="tag">Similar</span></td></tr>
+   <tr><td>Ingredients</td><td>10 listed</td><td>12 listed</td></tr>
+   <tr><td>Allergens</td><td>Wheat, soy</td><td>Wheat, milk, soy</td></tr>
+  </table>
+  <div class="card green" style="margin-top:12px"><h3>Summary</h3><p style="margin:0">A is lower in sugar and calories but higher in sodium. B is higher in sugar and lower in sodium. Which suits you depends on your goals.</p></div>
+  <button class="btn p" onclick="go('scan')">Scan Another Product</button>
+ </div>
+</section>
+
+<!-- 6 PROFILE -->
+<section class="screen" id="profile" aria-label="User Profile">
+ <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Personalize Your Experience</h1></div>
+ <div class="body">
+  <p class="mute">All fields are optional.</p>
+  <h2>Dietary preference</h2>
+  <div><button class="chip on" data-g="diet" data-v="vegetarian" onclick="chip(this)">Vegetarian</button><button class="chip" data-g="diet" data-v="vegan" onclick="chip(this)">Vegan</button><button class="chip" data-g="diet" data-v="jain" onclick="chip(this)">Jain</button><button class="chip" data-g="diet" data-v="glutenfree" onclick="chip(this)">Gluten-Free</button></div>
+  <h2>Allergies</h2>
+  <div><button class="chip" data-g="allergy" data-v="peanut" onclick="chip(this)">Peanuts</button><button class="chip" data-g="allergy" data-v="soy" onclick="chip(this)">Soy</button><button class="chip on" data-g="allergy" data-v="dairy" onclick="chip(this)">Dairy</button><button class="chip" data-g="allergy" data-v="wheat" onclick="chip(this)">Wheat/Gluten</button></div>
+  <h2>Nutrition goals</h2>
+  <div><button class="chip on" data-g="goal" data-v="lowsodium" onclick="chip(this)">Low Sodium</button><button class="chip on" data-g="goal" data-v="lowsugar" onclick="chip(this)">Low Sugar</button><button class="chip on" data-g="goal" data-v="highprotein" onclick="chip(this)">High Protein</button></div>
+  <h2>Daily nutrition targets <span class="tag">Optional</span></h2>
+  <div class="tgt"><div><label for="t-na">Sodium (mg)</label><input id="t-na" type="number" inputmode="numeric" value="2000"></div><div><label for="t-su">Sugar (g)</label><input id="t-su" type="number" inputmode="numeric" value="50"></div><div><label for="t-pr">Protein (g)</label><input id="t-pr" type="number" inputmode="numeric" value="50"></div></div>
+  <p class="note">Sample defaults shown. Use targets suggested by your doctor or dietitian if you have them.</p>
+  <h2>Health considerations</h2>
+  <select aria-label="Health considerations"><option>Select (optional)</option><option>Blood pressure</option><option>Diabetes</option><option>Cholesterol</option></select>
+  <h2>Personal care <span class="tag">Future feature</span></h2>
+  <select aria-label="Skin type" disabled><option>Skin type (coming later)</option></select>
+  <div class="card row" style="margin-top:14px;justify-content:space-between"><div><h3>Personalized ingredient alerts</h3><span class="mute">Flag items that match your choices</span></div><button class="sw on" role="switch" aria-checked="true" aria-label="Personalized alerts" onclick="sw(this)"></button></div>
+  <button class="btn p" onclick="savePrefs()">Save Preferences</button>
+  <p class="note">Share only what you want used for personalization. You can change or clear these choices at any time.</p>
+ </div>
+</section>
+
+<nav class="nav" aria-label="Main">
+ <button data-n="home" class="act" onclick="go('home')"><span>⌂</span>Home</button>
+ <button data-n="scan" onclick="go('scan')"><span>◎</span>Scan</button>
+ <button data-n="compare" onclick="go('compare')"><span>⇄</span>Compare</button>
+ <button data-n="profile" onclick="go('profile')"><span>☺</span>Profile</button>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+</div>
+
+<script>
+var hist=['home'];
+function go(id,isBack){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',s.id===id)});
+  if(!isBack&&hist[hist.length-1]!==id)hist.push(id);
+  if(isBack){var i=hist.lastIndexOf(id);hist=i>=0?hist.slice(0,i+1):[id]}
+  document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('act',b.dataset.n===id)});
+  if(id==='analysis')render();
+  var b=document.querySelector('#'+id+' .body');if(b)b.scrollTop=0;
+}
+function back(){hist.pop();go(hist[hist.length-1]||'home',true)}
+function tab(btn,id){
+  btn.parentNode.querySelectorAll('button').forEach(function(b){b.classList.remove('on')});btn.classList.add('on');
+  document.querySelectorAll('#analysis .panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+}
+function chip(b,single){
+  if(single){b.parentNode.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on')})}
+  b.classList.toggle('on',single?true:!b.classList.contains('on'));
+}
+function sw(b){var on=b.classList.toggle('on');b.setAttribute('aria-checked',on)}
+var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},1800)}
+function sel(g){return Array.prototype.map.call(document.querySelectorAll('.chip[data-g="'+g+'"].on'),function(c){return c.dataset.v})}
+function num(id,d){var v=parseFloat(document.getElementById(id).value);return v>0?v:d}
+function savePrefs(){render();toast('Preferences saved')}
+function render(){
+  var diet=sel('diet'),al=sel('allergy'),goals=sel('goal');
+  var tNa=num('t-na',2000),tSu=num('t-su',50),tPr=num('t-pr',50);
+  var P={na:1180,su:2,pr:7};
+  var rows=[],why=[],conflict=false;
+  function row(l,v,c,w){rows.push({l:l,v:v,c:c,w:w})}
+  function pc(x,t){return Math.round(x/t*100)}
+  // Dietary
+  if(!diet.length){row('Dietary preference','No preference set','',null)}
+  else if(diet.indexOf('glutenfree')>-1){row('Dietary preference','✕ Does Not Match','bad',0);conflict=true;why.push('Contains wheat flour, so it is not gluten-free.')}
+  else{row('Dietary preference','! Needs Verification','hi',.75);why.push('Some additives, such as INS 635, can come from different sources. Check the pack for your dietary choice.')}
+  // Allergens
+  if(!al.length){row('Allergens','No allergens selected','',null)}
+  else if(al.indexOf('wheat')>-1||al.indexOf('soy')>-1){row('Allergens','✕ Potential Allergen Conflict','bad',0);conflict=true;why.push('The label lists wheat and soy. Check the ingredient list for your selected allergens.')}
+  else if(al.indexOf('peanut')>-1||al.indexOf('dairy')>-1){row('Allergens','! Needs Verification','hi',.75);why.push('No conflict is listed for your selected allergens, but the “may contain” statement needs checking on the pack.')}
+  else{row('Allergens','✓ No Listed Conflict','lo',1)}
+  // Sodium
+  if(goals.indexOf('lowsodium')>-1){var s=pc(P.na,tNa);
+    if(s>=25){row('Sodium goal','✕ High','bad',0);why.push('Sodium is high compared with your low-sodium preference (1,180 mg per serving, about '+s+'% of your daily target).')}
+    else if(s>=10){row('Sodium goal','! Moderate','hi',.5);why.push('Sodium is moderate for your low-sodium preference (about '+s+'% of your daily target).')}
+    else{row('Sodium goal','✓ Within Preference','lo',1);why.push('Sodium is within your low-sodium preference (about '+s+'% of your daily target).')}
+  }else row('Sodium goal','No goal set','',null);
+  // Sugar
+  if(goals.indexOf('lowsugar')>-1){var u=pc(P.su,tSu);
+    if(u>=20){row('Sugar goal','✕ High','bad',0);why.push('Sugar is high for your low-sugar preference (about '+u+'% of your daily target).')}
+    else if(u>=8){row('Sugar goal','! Moderate','hi',.5);why.push('Sugar is moderate for your low-sugar preference (about '+u+'% of your daily target).')}
+    else{row('Sugar goal','✓ Within Preference','lo',1);why.push('Sugar is low at 2 g per serving (about '+u+'% of your daily target).')}
+  }else row('Sugar goal','No goal set','',null);
+  // Protein
+  if(goals.indexOf('highprotein')>-1){var r=pc(P.pr,tPr);
+    if(r>=20){row('Protein goal','✓ Meets Goal','lo',1)}else{row('Protein goal','! Below Goal','hi',.5)}
+    why.push('This product provides 7 g of protein per serving (about '+r+'% of your daily target).');
+  }else row('Protein goal','No goal set','',null);
+
+  var sc=rows.filter(function(x){return x.w!==null});
+  var label,pct=null,line;
+  if(!sc.length){label='Not Enough Information';line='Add preferences in your profile to see how this product compares.'}
+  else{
+    var sum=0;sc.forEach(function(x){sum+=x.w});pct=Math.round(sum/sc.length*100);
+    var onlyVerify=sc.every(function(x){return x.w===.75});
+    if(conflict){label='Conflicts With Your Preferences';line='At least one check conflicts with what you selected. Review the details before deciding.'}
+    else if(onlyVerify){label='Not Enough Information';line='Key details need verification on the pack, so no match can be assumed.'}
+    else if(pct>=85){label='Matches Your Preferences';line='Based on the label data shown, this fits your selected preferences.'}
+    else{label='Partially Matches Your Preferences';line='Some checks fit and some need attention. Compare it with another product if unsure.'}
+  }
+  var h='<div class="card green"><div class="score">'+(pct===null?'—':pct+'% <span style="font-size:16px;font-weight:600">Preference Match</span>')+'</div>'+
+    '<div class="bar" role="progressbar" aria-label="Preference match" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+(pct||0)+'"><i style="width:'+(pct||0)+'%"></i></div>'+
+    '<b>'+label+'</b><div class="mute" style="margin-top:4px">Illustrative score only. It is not a medically validated rating and does not guarantee a product is safe.</div></div>';
+  h+='<div class="card"><h3>Personalized checks</h3>';
+  rows.forEach(function(x){h+='<div class="chk"><span>'+x.l+'</span><span class="tag '+x.c+'">'+x.v+'</span></div>'});
+  h+='</div>';
+  h+='<div class="card"><h3>Why this result?</h3>'+(why.length?'<ul class="why">'+why.map(function(w){return '<li>'+w+'</li>'}).join('')+'</ul>':'<p class="mute" style="margin:0">No preferences selected yet.</p>')+'</div>';
+  h+='<div class="card"><h3>Personalized recommendation</h3><p style="margin:0 0 4px"><b>'+label+'</b></p><p class="mute" style="margin:0">'+line+'</p></div>';
+  h+='<button class="btn p" onclick="go(\'profile\')">View My Preferences</button><button class="btn" onclick="toast(\'Better-match suggestions (placeholder)\')">Find a Better Match</button><button class="btn" onclick="go(\'compare\')">Compare Products</button>';
+  document.getElementById('suit').innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>
