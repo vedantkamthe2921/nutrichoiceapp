@@ -102,12 +102,12 @@ input[type=number]{width:100%;padding:9px;border-radius:10px;border:1px solid va
 <section class="screen" id="scan" aria-label="Scan Product">
  <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Scan Product Label</h1></div>
  <div class="body">
-  <div class="cam"><div class="frame">Position the ingredient or nutrition label inside this outline</div></div>
+  <div class="cam" style="position:relative;overflow:hidden"><video id="vid" playsinline muted autoplay style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none"></video><div class="frame" id="frm" style="position:relative">Position the ingredient or nutrition label inside this outline</div></div><canvas id="cv" hidden></canvas><input type="file" id="fi" accept="image/*" hidden onchange="picked(this)">
   <p style="text-align:center">Capture the printed label clearly.</p>
-  <button class="btn p" onclick="go('analysis')">Capture Label</button>
-  <button class="btn" onclick="go('analysis')">Upload Image</button>
+  <button class="btn p" id="capbtn" onclick="capture()">Capture Label</button>
+  <button class="btn" onclick="document.getElementById('fi').click()">Upload Image</button>
   <button class="btn" onclick="toast('Manual entry form (not built in this wireframe)')">Enter Details Manually</button>
-  <p class="note">Nutrichoice reads printed product labels using text recognition. Results depend on image clarity and should be checked against the pack.</p>
+  <p class="note">Nutrichoice reads printed product labels using text recognition. Results depend on image clarity and should be checked against the pack. In this prototype your photo is shown but not read, so the analysis uses sample data.</p>
  </div>
 </section>
 
@@ -115,7 +115,7 @@ input[type=number]{width:100%;padding:9px;border-radius:10px;border:1px solid va
 <section class="screen" id="analysis" aria-label="Product Analysis">
  <div class="top"><button class="back" onclick="back()" aria-label="Back">‹</button><h1>Product Analysis</h1></div>
  <div class="body">
-  <div class="row" style="margin-bottom:10px"><div class="img lg">product<br>image</div><div><b style="font-size:17px">Instant Noodles, Masala</b><div class="mute">70 g pack · Sample data</div></div></div>
+  <div class="row" style="margin-bottom:10px"><div class="img lg" id="pimg">product<br>image</div><div><b style="font-size:17px">Instant Noodles, Masala</b><div class="mute">70 g pack · Sample data</div></div></div>
   <section class="suit" aria-label="Is this product right for you"><h2 class="t">Is This Product Right for You?</h2><div id="suit"></div></section>
   <div class="tabs" role="tablist">
    <button class="on" onclick="tab(this,'t-over')">Overview</button><button onclick="tab(this,'t-ing')">Ingredients</button><button onclick="tab(this,'t-nut')">Nutrition</button><button onclick="tab(this,'t-all')">Allergens</button>
@@ -237,6 +237,7 @@ function go(id,isBack){
   if(isBack){var i=hist.lastIndexOf(id);hist=i>=0?hist.slice(0,i+1):[id]}
   document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('act',b.dataset.n===id)});
   if(id==='analysis')render();
+  if(id==='scan')startCam();else stopCam();
   var b=document.querySelector('#'+id+' .body');if(b)b.scrollTop=0;
 }
 function back(){hist.pop();go(hist[hist.length-1]||'home',true)}
@@ -253,6 +254,33 @@ var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;
 function sel(g){return Array.prototype.map.call(document.querySelectorAll('.chip[data-g="'+g+'"].on'),function(c){return c.dataset.v})}
 function num(id,d){var v=parseFloat(document.getElementById(id).value);return v>0?v:d}
 function savePrefs(){render();toast('Preferences saved')}
+var stream=null;
+function startCam(){
+  var v=document.getElementById('vid'),f=document.getElementById('frm');
+  if(stream)return;
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){f.textContent='Camera is not available here. Use Upload Image instead.';return}
+  navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false}).then(function(s){
+    if(!document.getElementById('scan').classList.contains('on')){s.getTracks().forEach(function(t){t.stop()});return}
+    stream=s;v.srcObject=s;v.style.display='block';f.textContent='';
+    var p=v.play();if(p&&p.catch)p.catch(function(){});
+  }).catch(function(){f.textContent='Camera blocked or unavailable. Allow camera access in your browser, or use Upload Image.'});
+}
+function stopCam(){
+  if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}
+  var v=document.getElementById('vid');v.srcObject=null;v.style.display='none';
+  document.getElementById('frm').textContent='Position the ingredient or nutrition label inside this outline';
+}
+function setPhoto(u){var p=document.getElementById('pimg');p.textContent='';p.style.background='url('+u+') center/cover'}
+function capture(){
+  var v=document.getElementById('vid');
+  if(!stream||!v.videoWidth){toast('Camera is off. Allow access or use Upload Image.');return}
+  var c=document.getElementById('cv');c.width=v.videoWidth;c.height=v.videoHeight;
+  c.getContext('2d').drawImage(v,0,0);setPhoto(c.toDataURL('image/jpeg',.8));go('analysis');
+}
+function picked(i){
+  var f=i.files&&i.files[0];if(!f)return;
+  var r=new FileReader();r.onload=function(){setPhoto(r.result);go('analysis')};r.readAsDataURL(f);i.value='';
+}
 function render(){
   var diet=sel('diet'),al=sel('allergy'),goals=sel('goal');
   var tNa=num('t-na',2000),tSu=num('t-su',50),tPr=num('t-pr',50);
